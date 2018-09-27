@@ -52,8 +52,7 @@ export class ReactPing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPolling: false,
-      poll: null
+      isPolling: false
     };
     this.initConfig(props);
   }
@@ -82,14 +81,12 @@ export class ReactPing extends React.Component {
   stopPolling() {
     if (this._ismounted) {
       const isPolling = false;
-      let poll = this.state.poll;
-      if (poll) {
-        clearTimeout(poll);
-        poll = null;
+      if (this.poll) {
+        clearTimeout(this.poll);
+        this.poll = null;
       }
       this.setState({
-        isPolling,
-        poll
+        isPolling
       });
     }
   }
@@ -120,7 +117,7 @@ export class ReactPing extends React.Component {
     const { url, interval, onSuccess, onFailure, api } = this.config;
 
     const _this = this;
-    const poll = setTimeout(() => {
+    this.poll = setTimeout(() => {
       /* onSuccess would be handled by the user of service which would either return true or false
       * true - This means we need to continue polling
       * false - This means we need to stop polling
@@ -150,9 +147,6 @@ export class ReactPing extends React.Component {
           }
         });
     }, interval);
-    this.setState({
-      poll: poll
-    });
   }
   componentDidMount() {
     // set _isMounted to true to check if our component is still mounted or the user re-directed to some other page
