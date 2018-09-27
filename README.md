@@ -41,7 +41,6 @@ import React from 'react';
     }
   }}
 />
-`;
 ```
 
 ## Api
