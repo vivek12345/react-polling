@@ -60,7 +60,13 @@ import React from 'react';
 | body                    | object                 | -         | The data that need to be sent in a post/put call                                                    |
 | render                  | function               | -         | function to render jsx                                                                              |
 | children                | function               | -         | React children function based on chil props pattern                                                 |
+## Contribute
 
+Show your ❤️ and support by giving a ⭐. Any suggestions and pull request are welcome !
+
+#### license
+
+MIT © [viveknayyar](https://github.com/vivek12345)
 
 ## TODO
 
