@@ -64,7 +64,7 @@ import React from 'react';
 
 Show your ❤️ and support by giving a ⭐. Any suggestions and pull request are welcome !
 
-#### license
+### License
 
 MIT © [viveknayyar](https://github.com/vivek12345)
 
