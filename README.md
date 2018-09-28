@@ -1,4 +1,4 @@
-# react-ping
+# 🔔 react-ping
 
 Easy to use polling service built with react that follows the render props pattern.
 
@@ -45,7 +45,7 @@ import React from 'react';
 
 ## 📦 Api
 
-### react-ping 🔔
+### 🔔 react-ping
 
 | Props                   | Type                   | Default   | Description                                                                                         |
 |-------------------------|------------------------|-----------|-----------------------------------------------------------------------------------------------------|
