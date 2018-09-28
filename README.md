@@ -54,11 +54,11 @@ import React from 'react';
 | retryCount              | number                 | 0         | Number of times to retry when an api polling call fails                                             |
 | onSuccess               | function               | -         | Callback function on successful polling. This should return true to continue polling                |
 | onFailure               | function               | () => {}  | Callback function on failed polling or api failure                                                  |
-| method                  | string                 | get       | HTTP Method of the api to call                                                                      |
+| method                  | string                 | GET       | HTTP Method of the api to call                                                                      |
 | headers                 | object                 | -         | Any specific http headers that need to be sent with the request                                     |
 | body                    | object                 | -         | The data that need to be sent in a post/put call                                                    |
-| render                  | function               | -         | Render function to render the ui                                                                              |
-| children                | function               | -         | React children function based on child props pattern                                                 |
+| render                  | function               | -         | Render function to render the ui                                                                    |
+| children                | function               | -         | React children function based on child props pattern                                                |
 
 #### onSuccess (required)
 
