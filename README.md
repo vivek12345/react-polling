@@ -52,7 +52,7 @@ import React from 'react';
 | url                     | string                 | null      | url/api to poll                                                                                     |
 | interval                | number                 | 3000      | Interval of polling                                                                                 |
 | retryCount              | number                 | 0         | Number of times to retry when an api polling call fails                                             |
-| onSuccess               | function               | -         | Callback function on successful polling. This should true to continue polling                       |
+| onSuccess               | function               | -         | Callback function on successful polling. This should return true to continue polling                |
 | onFailure               | function               | () => {}  | Callback function on failed polling or api failure                                                  |
 | method                  | string                 | get       | HTTP Method of the api to call                                                                      |
 | headers                 | object                 | -         | Any specific http headers that need to be sent with the request                                     |
