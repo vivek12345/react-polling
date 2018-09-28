@@ -57,8 +57,8 @@ import React from 'react';
 | method                  | string                 | get       | HTTP Method of the api to call                                                                      |
 | headers                 | object                 | -         | Any specific http headers that need to be sent with the request                                     |
 | body                    | object                 | -         | The data that need to be sent in a post/put call                                                    |
-| render                  | function               | -         | function to render jsx                                                                              |
-| children                | function               | -         | React children function based on chil props pattern                                                 |
+| render                  | function               | -         | Render function to render the ui                                                                              |
+| children                | function               | -         | React children function based on child props pattern                                                 |
 
 #### onSuccess (required)
 
