@@ -1,6 +1,6 @@
 # react-ping
 
-Easy to use polling service with this react component that follows the render props pattern
+Easy to use polling service built with react that follows the render props pattern.
 
 **Note: Read more about render props here  [Render Props Pattern](https://reactjs.org/docs/render-props.html)**
 
@@ -47,18 +47,44 @@ import React from 'react';
 
 ### react-ping
 
-| Props                   | Type                   | Default   | Description                                                                                         |
+| Props                   | Type                   |Required   | Default   | Description                                                                             |
 |-------------------------|------------------------|-----------|-----------------------------------------------------------------------------------------------------|
-| url                     | string                 | null      | url/api to poll                                                                                     |
-| interval                | number                 | 3000      | Interval of polling                                                                                 |
-| retryCount              | number                 | 0         | Number of times to retry when an api polling call fails                                             |
-| onSuccess               | function               | -         | Callback function on successful polling. This should true to continue polling                       |
-| onFailure               | function               | () => {}  | Callback function on failed polling or api failure                                                  |
-| method                  | string                 | get       | HTTP Method of the api to call                                                                      |
-| headers                 | object                 | -         | Any specific http headers that need to be sent with the request                                     |
-| body                    | object                 | -         | The data that need to be sent in a post/put call                                                    |
-| render                  | function               | -         | function to render jsx                                                                              |
-| children                | function               | -         | React children function based on chil props pattern                                                 |
+| url                     | string                 |     ✓     | null      | url/api to poll                                                                         |
+| interval                | number                 |           | 3000      | Interval of polling                                                                     |
+| retryCount              | number                 |           | 0         | Number of times to retry when an api polling call fails                                 |
+| onSuccess               | function               |     ✓     | -         | Callback function on successful polling. This should return true to continue polling    |
+| onFailure               | function               |           | () => {}  | Callback function on failed polling or api failure                                      |
+| method                  | string                 |           | GET       | HTTP Method of the api to call                                                          |
+| headers                 | object                 |           | -         | Any specific http headers that need to be sent with the request                         |
+| body                    | object                 |           | -         | The data that need to be sent in a post/put call                                        |
+| render                  | function               |     ✓     | -         | render function to show the ui                                                          |
+| children                | function               |     ✓     | -         | React children function based on child props pattern                                    |
+
+#### onSuccess (required)
+
+This function will be called every time the polling service gets a successful response.
+You should return true to continue polling and false to stop polling. It has the following signature:
+
+```javascript
+function onSuccess(response) {
+  // You can do anything with this response, may be add to an array of some state of your react component
+  // return true to continue polling
+  // return false to stop polling
+}
+```
+
+#### onFailure (not compulsory field)
+
+This function will be called every time the polling service gets a failure response from the api, it can be 401 or 500 or any failure status code.
+You can do some cleaning up of your variables or reseting the state here.
+
+```javascript
+function onFailure(error) {
+  // You can log this error to some logging service
+  // clean up some state and variables.
+}
+```
+
 ## Contribute
 
 Show your ❤️ and support by giving a ⭐. Any suggestions and pull request are welcome !
