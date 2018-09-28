@@ -95,5 +95,6 @@ MIT © [viveknayyar](https://github.com/vivek12345)
 
 ## 👷 TODO
 
-- [ ] Complete README
+- [x] Complete README
+- [ ] Add Examples and Demo
 - [ ] Test Suite
