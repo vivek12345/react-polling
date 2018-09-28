@@ -4,7 +4,7 @@ Easy to use polling service built with react that follows the render props patte
 
 **Note: Read more about render props here  [Render Props Pattern](https://reactjs.org/docs/render-props.html)**
 
-### Install
+### 🚚 Installation
 
 ```
 yarn add react-ping
@@ -16,7 +16,7 @@ or
 npm i react-ping --save
 ```
 
-### Usage
+### ⚡️ Usage
 
 ```javascript
 import React from 'react';
@@ -43,9 +43,9 @@ import React from 'react';
 />
 ```
 
-## Api
+## 📦 Api
 
-### react-ping
+### react-ping 🔔
 
 | Props                   | Type                   | Default   | Description                                                                                         |
 |-------------------------|------------------------|-----------|-----------------------------------------------------------------------------------------------------|
@@ -85,15 +85,15 @@ function onFailure(error) {
 }
 ```
 
-## Contribute
+## 👍 Contribute
 
 Show your ❤️ and support by giving a ⭐. Any suggestions and pull request are welcome !
 
-### License
+### 📝 License
 
 MIT © [viveknayyar](https://github.com/vivek12345)
 
-## TODO
+## 👷 TODO
 
 - [ ] Complete README
 - [ ] Test Suite
