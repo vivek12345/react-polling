@@ -174,8 +174,9 @@ export class ReactPing extends React.Component {
   }
 }
 
+// prop types check for dev environment
 ReactPing.propTypes = {
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   interval: PropTypes.number,
   retryCount: PropTypes.number,
   onSuccess: PropTypes.func.isRequired,
@@ -187,6 +188,7 @@ ReactPing.propTypes = {
   children: PropTypes.func
 };
 
+// default props
 ReactPing.defaultProps = {
   interval: 3000,
   retryCount: 0,

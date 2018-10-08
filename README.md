@@ -97,4 +97,4 @@ MIT © [viveknayyar](https://github.com/vivek12345)
 
 - [x] Complete README
 - [ ] Add Examples and Demo
-- [ ] Test Suite
+- [x] Test Suite
