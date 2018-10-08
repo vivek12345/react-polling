@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
-<ReactPing 
+<ReactPolling 
   interval= {3000}, // in milliseconds(ms)
   retryCount={3} // this is optional
   onSuccess={() => console.log('handle success')}
@@ -27,7 +27,7 @@ import PropTypes from 'prop-types';
 />
 */
 
-export class ReactPing extends React.Component {
+export class ReactPolling extends React.Component {
   /**
    * Initial config for setting up the polling service
    * @param {Object} options
@@ -175,7 +175,7 @@ export class ReactPing extends React.Component {
 }
 
 // prop types check for dev environment
-ReactPing.propTypes = {
+ReactPolling.propTypes = {
   url: PropTypes.string,
   interval: PropTypes.number,
   retryCount: PropTypes.number,
@@ -189,11 +189,11 @@ ReactPing.propTypes = {
 };
 
 // default props
-ReactPing.defaultProps = {
+ReactPolling.defaultProps = {
   interval: 3000,
   retryCount: 0,
   onFailure: () => {},
   method: 'GET'
 };
 
-export default ReactPing;
+export default ReactPolling;
