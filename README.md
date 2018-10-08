@@ -1,5 +1,8 @@
 # 🔔 react-polling
 
+
+[![Build Status](https://travis-ci.com/vivek12345/react-polling.svg)](https://travis-ci.com/vivek12345/react-polling)
+
 Easy to use polling service built with react that follows the render props pattern.
 
 **Note: Read more about render props here  [Render Props Pattern](https://reactjs.org/docs/render-props.html)**
