@@ -46,7 +46,7 @@ import React from 'react';
 />
 ```
 
-## 📦 Api
+## 📒 Api
 
 ### 🔔 react-polling
 
@@ -87,6 +87,10 @@ function onFailure(error) {
   // clean up some state and variables.
 }
 ```
+
+## 📦 Size
+
+<img src='./size.png' />
 
 ## 👍 Contribute
 
