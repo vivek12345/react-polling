@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "node"
+  - "v8.10.0"
+cache: yarn
+script:
+  - yarn test
