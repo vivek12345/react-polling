@@ -1,4 +1,4 @@
-# 🔔 react-ping
+# 🔔 react-polling
 
 Easy to use polling service built with react that follows the render props pattern.
 
@@ -7,13 +7,13 @@ Easy to use polling service built with react that follows the render props patte
 ### 🚚 Installation
 
 ```
-yarn add react-ping
+yarn add react-polling
 ```
 
 or
 
 ```
-npm i react-ping --save
+npm i react-polling --save
 ```
 
 ### ⚡️ Usage
@@ -21,7 +21,7 @@ npm i react-ping --save
 ```javascript
 import React from 'react';
 
-<ReactPing 
+<ReactPolling
   interval= {3000}, // in milliseconds(ms)
   retryCount={3} // this is optional
   onSuccess={() => console.log('handle success')}
@@ -45,7 +45,7 @@ import React from 'react';
 
 ## 📦 Api
 
-### 🔔 react-ping
+### 🔔 react-polling
 
 | Props                   | Type                   | Default   | Description                                                                                         |
 |-------------------------|------------------------|-----------|-----------------------------------------------------------------------------------------------------|

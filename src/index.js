@@ -1,2 +1,2 @@
-import ReactPing from './ReactPing';
-export default ReactPing;
+import ReactPolling from './ReactPolling';
+export default ReactPolling;

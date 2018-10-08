@@ -1,11 +1,11 @@
 {
-  "name": "react-ping",
+  "name": "react-polling",
   "version": "1.0.0",
-  "description": "Polling an API made easy with react-ping",
+  "description": "Polling an API made easy with react-polling",
   "keywords": [
     "react",
     "polling",
-    "react-ping"
+    "react-polling"
   ],
   "main": "lib/index.js",
   "files": [
@@ -38,14 +38,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vivek12345/react-ping.git"
+    "url": "git+https://github.com/vivek12345/react-polling.git"
   },
   "author": "Vivek Nayyar  <vivek.of.nayyar@gmail.com> (https://viveknayyar.in)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vivek12345/react-ping/issues"
+    "url": "https://github.com/vivek12345/react-polling/issues"
   },
-  "homepage": "https://github.com/vivek12345/react-ping#readme",
+  "homepage": "https://github.com/vivek12345/react-polling#readme",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"

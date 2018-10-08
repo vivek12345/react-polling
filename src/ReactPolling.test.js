@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactPing from './ReactPing';
+import ReactPolling from './ReactPolling';
 import { shallow } from 'enzyme';
 
 import * as mockData from '../__mock_data__/data';
 
-describe('<ReactPing />', () => {
+describe('<ReactPolling />', () => {
   let onSuccess = jest.fn(),
     onFailure = jest.fn,
     url = 'http://localhost/session/status';
@@ -23,7 +23,7 @@ describe('<ReactPing />', () => {
     });
     test('should render properly with render props', () => {
       const wrapper = shallow(
-        <ReactPing
+        <ReactPolling
           url={url}
           onSuccess={onSuccess}
           onFailure={onFailure}
@@ -42,7 +42,7 @@ describe('<ReactPing />', () => {
     });
     test('should render properly with children props', () => {
       const wrapper = shallow(
-        <ReactPing url={url} onSuccess={onSuccess} onFailure={onFailure}>
+        <ReactPolling url={url} onSuccess={onSuccess} onFailure={onFailure}>
           {({ isPolling }) => {
             return (
               <div>
@@ -51,7 +51,7 @@ describe('<ReactPing />', () => {
               </div>
             );
           }}
-        </ReactPing>
+        </ReactPolling>
       );
       expect(wrapper.find('p').length).toBe(1);
       expect(wrapper.find('#isPolling').length).toBe(1);
@@ -59,10 +59,10 @@ describe('<ReactPing />', () => {
     describe('initial tests for checking initial variables before we start polling', () => {
       let wrapper, mockedComponentDidMount;
       beforeEach(() => {
-        mockedComponentDidMount = jest.spyOn(ReactPing.prototype, 'componentDidMount');
+        mockedComponentDidMount = jest.spyOn(ReactPolling.prototype, 'componentDidMount');
         mockedComponentDidMount.mockImplementation();
         wrapper = shallow(
-          <ReactPing
+          <ReactPolling
             url={url}
             onSuccess={onSuccess}
             onFailure={onFailure}
@@ -115,10 +115,10 @@ describe('<ReactPing />', () => {
     });
     describe('tests with polling started', () => {
       test('startPolling function to have been called', () => {
-        const mockedStartPolling = jest.spyOn(ReactPing.prototype, 'startPolling');
+        const mockedStartPolling = jest.spyOn(ReactPolling.prototype, 'startPolling');
         mockedStartPolling.mockImplementation();
         shallow(
-          <ReactPing
+          <ReactPolling
             url={url}
             onSuccess={onSuccess}
             onFailure={onFailure}
@@ -142,7 +142,7 @@ describe('<ReactPing />', () => {
       test('startPolling function to throw an error when no url provided', () => {
         expect(() => {
           shallow(
-            <ReactPing
+            <ReactPolling
               url={null}
               onSuccess={onSuccess}
               onFailure={onFailure}
@@ -163,10 +163,10 @@ describe('<ReactPing />', () => {
         }).toThrowError();
       });
       test('startPolling should set isPolling state to true, _ismounted to true and call runPolling function', () => {
-        const mockedRunPolling = jest.spyOn(ReactPing.prototype, 'runPolling');
+        const mockedRunPolling = jest.spyOn(ReactPolling.prototype, 'runPolling');
         mockedRunPolling.mockImplementation();
         const wrapper = shallow(
-          <ReactPing
+          <ReactPolling
             url={url}
             onSuccess={onSuccess}
             onFailure={onFailure}
@@ -193,7 +193,7 @@ describe('<ReactPing />', () => {
       });
       test('stopPolling should set isPolling to false, _ismounted to false and poll to null', () => {
         const wrapper = shallow(
-          <ReactPing
+          <ReactPolling
             url={url}
             onSuccess={onSuccess}
             onFailure={onFailure}
@@ -226,12 +226,12 @@ describe('<ReactPing />', () => {
         jest.clearAllTimers();
       });
       test('run Polling should call setTimeout and make api calls at every interval', async () => {
-        const mockedRunPolling = jest.spyOn(ReactPing.prototype, 'runPolling');
+        const mockedRunPolling = jest.spyOn(ReactPolling.prototype, 'runPolling');
         const mockedOnSuccess = jest.fn(() => {
           return true;
         });
         shallow(
-          <ReactPing
+          <ReactPolling
             url={url}
             onSuccess={mockedOnSuccess}
             onFailure={onFailure}
@@ -288,11 +288,11 @@ describe('<ReactPing />', () => {
       jest.clearAllTimers();
     });
     test('onFailure should retry equal to config.retryTimes', async () => {
-      const mockedRunPolling = jest.spyOn(ReactPing.prototype, 'runPolling');
-      const mockedStopPolling = jest.spyOn(ReactPing.prototype, 'stopPolling');
+      const mockedRunPolling = jest.spyOn(ReactPolling.prototype, 'runPolling');
+      const mockedStopPolling = jest.spyOn(ReactPolling.prototype, 'stopPolling');
       const retryCount = 4;
       const wrapper = shallow(
-        <ReactPing
+        <ReactPolling
           url={url}
           onSuccess={onSuccess}
           onFailure={onFailure}
