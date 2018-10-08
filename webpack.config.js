@@ -6,25 +6,21 @@ module.exports = {
   devtool: 'source-map',
   entry: './src/index.js',
   output: {
-    path: __dirname + "/dist",
-    filename: 'ReactPing.js',
+    path: __dirname + '/dist',
+    filename: 'ReactPolling.js',
     libraryTarget: 'umd',
-    library: 'ReactPing'
+    library: 'ReactPolling'
   },
   module: {
     rules: [
       {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader'
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       }
     ]
   },
-  externals: [
-    'react',
-    'react-dom',
-    'prop-types'
-  ],
+  externals: ['react', 'react-dom', 'prop-types'],
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
