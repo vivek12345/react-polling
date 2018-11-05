@@ -1,4 +1,5 @@
 # 🔔 react-polling
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 
 [![Build Status](https://travis-ci.com/vivek12345/react-polling.svg)](https://travis-ci.com/vivek12345/react-polling)
@@ -106,3 +107,15 @@ MIT © [viveknayyar](https://github.com/vivek12345)
 - [x] Complete README
 - [ ] Add Examples and Demo
 - [x] Test Suite
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars3.githubusercontent.com/u/4931048?v=4" width="100px;"/><br /><sub><b>Vivek Nayyar</b></sub>](https://www.viveknayyar.in/)<br />[📖](https://github.com/vivek12345/react-polling/commits?author=vivek12345 "Documentation") [💻](https://github.com/vivek12345/react-polling/commits?author=vivek12345 "Code") [🎨](#design-vivek12345 "Design") [💡](#example-vivek12345 "Examples") |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
