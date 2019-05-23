@@ -92,7 +92,7 @@ function onFailure(error) {
 
 ## 📦 Size
 
-<img src='./size.png' />
+<img src='./size1.png' />
 
 ## 👍 Contribute
 
