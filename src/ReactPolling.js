@@ -14,14 +14,13 @@ import PropTypes from 'prop-types';
   render={({ startPolling, stopPolling, isPolling }) => {
     if(isPolling) {
       return (
-        <div> Hello I am polling</div>
-          <Spinner />
+        <div>
+          <p>Hello I am polling<p>
         </div>
       );
     } else {
       return (
-        <div> Hello I stopped polling</div>
-        </div>
+        <div>Hello I stopped polling</div>
       );
     }
   }}
@@ -157,14 +156,14 @@ export class ReactPolling extends React.Component {
   render() {
     if (this.props.render) {
       return this.props.render({
-        startPolling: this.startPolling,
-        stopPolling: this.stopPolling,
+        startPolling: this.startPolling.bind(this),
+        stopPolling: this.stopPolling.bind(this),
         isPolling: this.state.isPolling
       });
     }
     return this.props.children({
-      startPolling: this.startPolling,
-      stopPolling: this.stopPolling,
+      startPolling: this.startPolling.bind(this),
+      stopPolling: this.stopPolling.bind(this),
       isPolling: this.state.isPolling
     });
   }
