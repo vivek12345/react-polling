@@ -22,7 +22,7 @@ npm i react-polling --save
 
 ### ⚡️ Usage
 
-### Default usage(the lib will internally use fetch to make api calls)
+### Default usage (the lib will internally use fetch to make api calls)
 
 ```javascript
 import React from 'react';
@@ -51,7 +51,7 @@ import React from 'react';
 ```
 
 
-### Custom lib for making api calls(provide us your promise function and we will use that to make api calls)
+### Custom lib for making api calls (provide us your promise function and we will use that to make api calls)
 
 ```javascript
 import React from 'react';
@@ -72,7 +72,7 @@ const App = () => {
       retryCount={3} // this is optional
       onSuccess={() => console.log('handle success')}
       onFailure={() => console.log('handle failure')} // this is optional
-      promise={fetchData}// custom api calling function that should return a promise
+      promise={fetchData} // custom api calling function that should return a promise
       render={({ startPolling, stopPolling, isPolling }) => {
         if(isPolling) {
           return (
