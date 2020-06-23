@@ -146,7 +146,7 @@ function fetchPosts() {
 
 <img src='./size.png' />
 
-## Examples
+## 👻 Examples
 
 * Basic Usage (https://codesandbox.io/s/react-polling-basic-usage-zie3j?file=/src/App.js)
 
