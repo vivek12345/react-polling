@@ -22,6 +22,8 @@ npm i react-polling --save
 
 ### ⚡️ Usage
 
+### Default usage(the lib will internally use fetch to make api calls)
+
 ```javascript
 import React from 'react';
 
@@ -48,6 +50,45 @@ import React from 'react';
 />
 ```
 
+
+### Custom lib for making api calls(provide us your promise function and we will use that to make api calls)
+
+```javascript
+import React from 'react';
+// import of some lib for making http calls
+// let's say you are using axios
+import axios from "axios";
+
+const fetchData = () => {
+  // return a promise
+  return axios.get("some polling url");
+}
+
+const App = () => {
+  return (
+    <ReactPolling
+      url={'url to poll'}
+      interval= {3000} // in milliseconds(ms)
+      retryCount={3} // this is optional
+      onSuccess={() => console.log('handle success')}
+      onFailure={() => console.log('handle failure')} // this is optional
+      promise={fetchData}// custom api calling function that should return a promise
+      render={({ startPolling, stopPolling, isPolling }) => {
+        if(isPolling) {
+          return (
+            <div> Hello I am polling</div>
+          );
+        } else {
+          return (
+            <div> Hello I stopped polling</div>
+          );
+        }
+      }}
+    />
+  );
+}
+```
+
 ## 📒 Api
 
 ### 🔔 react-polling
@@ -63,6 +104,7 @@ import React from 'react';
 | headers                 | object                 | -         | Any specific http headers that need to be sent with the request                                     |
 | body                    | object                 | -         | The data that need to be sent in a post/put call                                                    |
 | render                  | function               | -         | Render function to render the ui                                                                    |
+| promise                 | function               | -         | custom function that should return a promise                                                                    |
 | children                | function               | -         | React children function based on child props pattern                                                |
 
 #### onSuccess (required)
@@ -87,6 +129,16 @@ You can do some cleaning up of your variables or reseting the state here.
 function onFailure(error) {
   // You can log this error to some logging service
   // clean up some state and variables.
+}
+```
+
+#### promise (when you need your own api calling logic and not the default fetch which this lib uses)
+This function will be called every time the polling service wants to poll for some data.
+Ideally inside this function you should write your api calling logic.
+
+```javascript
+function fetchPosts() {
+  return axios.get("some url");
 }
 ```
 
