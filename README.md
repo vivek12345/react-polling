@@ -146,6 +146,14 @@ function fetchPosts() {
 
 <img src='./size.png' />
 
+## Examples
+
+* Basic Usage (https://codesandbox.io/s/react-polling-basic-usage-zie3j?file=/src/App.js)
+
+* Using custom promises (https://codesandbox.io/s/react-polling-custom-promise-example-n54eb?file=/src/App.js)
+
+* Dynamic Url (https://codesandbox.io/s/react-polling-custom-promise-dynamic-url-3z7h2?file=/src/App.js)
+
 ## 👍 Contribute
 
 Show your ❤️ and support by giving a ⭐. Any suggestions and pull request are welcome !
@@ -157,7 +165,7 @@ MIT © [viveknayyar](https://github.com/vivek12345)
 ## 👷 TODO
 
 - [x] Complete README
-- [ ] Add Examples and Demo
+- [x] Add Examples and Demo
 - [x] Test Suite
 
 ## Contributors
