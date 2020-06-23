@@ -61,7 +61,7 @@ export class ReactPolling extends React.Component {
    * @param {Object} options
    */
   initConfig(options) {
-    let { url, interval, retryCount, onSuccess, onFailure, ...api } = options;
+    let { url, interval, retryCount, onSuccess, onFailure, promise, ...api } = options;
     interval = Number(interval);
     retryCount = Number(retryCount);
     this.config = {
@@ -71,6 +71,7 @@ export class ReactPolling extends React.Component {
       retryCount: retryCount,
       onSuccess,
       onFailure,
+      promise,
       api
     };
   }
@@ -114,23 +115,37 @@ export class ReactPolling extends React.Component {
    * This function would call the api first time and only on the success response of the api we would poll again after the interval
    */
   runPolling() {
-    const { url, interval, onSuccess, onFailure, api } = this.config;
+    const { url, interval, onSuccess, onFailure, promise, api } = this.config;
+
+    const pollingPromise = (promise && promise(url)) || fetch(url, api);
 
     const _this = this;
     this.poll = setTimeout(() => {
       /* onSuccess would be handled by the user of service which would either return true or false
-      * true - This means we need to continue polling
-      * false - This means we need to stop polling
-      */
-      fetch(url, api)
+       * true - This means we need to continue polling
+       * false - This means we need to stop polling
+       */
+      pollingPromise
         .then(resp => {
-          return resp.json().then(data => {
-            if (resp.ok) {
-              return data;
-            } else {
-              return Promise.reject({ status: resp.status, data });
-            }
-          });
+          if (resp && resp.json) {
+            return resp
+              .json()
+              .then(data => {
+                if (resp.ok) {
+                  return data;
+                } else {
+                  return Promise.reject({ status: resp.status, data });
+                }
+              })
+              .catch(data => {
+                if (resp.ok) {
+                  return data;
+                } else {
+                  return Promise.reject({ status: resp.status, data });
+                }
+              });
+          }
+          return resp;
         })
         .then(onSuccess)
         .then(continuePolling => {
@@ -185,6 +200,7 @@ ReactPolling.propTypes = {
   method: PropTypes.string,
   body: PropTypes.object,
   render: PropTypes.func,
+  promise: PropTypes.func,
   children: PropTypes.func
 };
 

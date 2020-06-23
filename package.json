@@ -10,8 +10,7 @@
   "main": "lib/index.js",
   "files": [
     "lib",
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js",

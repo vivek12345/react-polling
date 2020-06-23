@@ -24,8 +24,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'no-console': ['off'],
-    'jsx-quotes': ['error', 'prefer-single'],
+    'jsx-quotes': ['error', 'prefer-double'],
     'react/display-name': ['off', { ignoreTranspilerName: false }]
   }
 };
-  

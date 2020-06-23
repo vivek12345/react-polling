@@ -10,7 +10,7 @@ describe('<ReactPolling />', () => {
     url = 'http://localhost/session/status';
   describe('success test cases', () => {
     beforeAll(() => {
-      window.fetch = jest.fn().mockImplementation(() =>
+      global.fetch = jest.fn().mockImplementation(() =>
         Promise.resolve({
           json: () => {
             return new Promise(resolve => {
@@ -31,7 +31,7 @@ describe('<ReactPolling />', () => {
             return (
               <div>
                 <p>Polling Component</p>
-                {isPolling ? <div id='isPolling'> I am polling</div> : <div id='isNotPolling'> I am not polling </div>}
+                {isPolling ? <div id="isPolling"> I am polling</div> : <div id="isNotPolling"> I am not polling </div>}
               </div>
             );
           }}
@@ -47,7 +47,7 @@ describe('<ReactPolling />', () => {
             return (
               <div>
                 <p>Polling Component</p>
-                {isPolling ? <div id='isPolling'> I am polling</div> : <div id='isNotPolling'> I am not polling </div>}
+                {isPolling ? <div id="isPolling"> I am polling</div> : <div id="isNotPolling"> I am not polling </div>}
               </div>
             );
           }}
@@ -71,9 +71,9 @@ describe('<ReactPolling />', () => {
                 <div>
                   <p>Polling Component</p>
                   {isPolling ? (
-                    <div id='isPolling'> I am polling</div>
+                    <div id="isPolling"> I am polling</div>
                   ) : (
-                    <div id='isNotPolling'> I am not polling </div>
+                    <div id="isNotPolling"> I am not polling </div>
                   )}
                 </div>
               );
@@ -127,9 +127,9 @@ describe('<ReactPolling />', () => {
                 <div>
                   <p>Polling Component</p>
                   {isPolling ? (
-                    <div id='isPolling'> I am polling</div>
+                    <div id="isPolling"> I am polling</div>
                   ) : (
-                    <div id='isNotPolling'> I am not polling </div>
+                    <div id="isNotPolling"> I am not polling </div>
                   )}
                 </div>
               );
@@ -151,9 +151,9 @@ describe('<ReactPolling />', () => {
                   <div>
                     <p>Polling Component</p>
                     {isPolling ? (
-                      <div id='isPolling'> I am polling</div>
+                      <div id="isPolling"> I am polling</div>
                     ) : (
-                      <div id='isNotPolling'> I am not polling </div>
+                      <div id="isNotPolling"> I am not polling </div>
                     )}
                   </div>
                 );
@@ -175,9 +175,9 @@ describe('<ReactPolling />', () => {
                 <div>
                   <p>Polling Component</p>
                   {isPolling ? (
-                    <div id='isPolling'> I am polling</div>
+                    <div id="isPolling"> I am polling</div>
                   ) : (
-                    <div id='isNotPolling'> I am not polling </div>
+                    <div id="isNotPolling"> I am not polling </div>
                   )}
                 </div>
               );
@@ -202,9 +202,9 @@ describe('<ReactPolling />', () => {
                 <div>
                   <p>Polling Component</p>
                   {isPolling ? (
-                    <div id='isPolling'> I am polling</div>
+                    <div id="isPolling"> I am polling</div>
                   ) : (
-                    <div id='isNotPolling'> I am not polling </div>
+                    <div id="isNotPolling"> I am not polling </div>
                   )}
                 </div>
               );
@@ -219,17 +219,20 @@ describe('<ReactPolling />', () => {
       });
     });
     describe('timer events', () => {
+      let mockedRunPolling, mockedOnSuccess;
       beforeEach(() => {
         jest.useFakeTimers();
+        mockedRunPolling = jest.spyOn(ReactPolling.prototype, 'runPolling');
+        mockedOnSuccess = jest.fn(() => {
+          return true;
+        });
       });
       afterEach(() => {
         jest.clearAllTimers();
+        mockedRunPolling.mockClear();
+        mockedOnSuccess.mockClear();
       });
       test('run Polling should call setTimeout and make api calls at every interval', async () => {
-        const mockedRunPolling = jest.spyOn(ReactPolling.prototype, 'runPolling');
-        const mockedOnSuccess = jest.fn(() => {
-          return true;
-        });
         shallow(
           <ReactPolling
             url={url}
@@ -240,9 +243,9 @@ describe('<ReactPolling />', () => {
                 <div>
                   <p>Polling Component</p>
                   {isPolling ? (
-                    <div id='isPolling'> I am polling</div>
+                    <div id="isPolling"> I am polling</div>
                   ) : (
-                    <div id='isNotPolling'> I am not polling </div>
+                    <div id="isNotPolling"> I am not polling </div>
                   )}
                 </div>
               );
@@ -253,6 +256,7 @@ describe('<ReactPolling />', () => {
         expect(setTimeout).toHaveBeenCalledTimes(1);
         jest.runAllTimers();
         expect(fetch).toHaveBeenCalled();
+        await Promise.resolve();
         await Promise.resolve();
         await Promise.resolve();
         await Promise.resolve();
@@ -268,14 +272,114 @@ describe('<ReactPolling />', () => {
         await Promise.resolve();
         await Promise.resolve();
         expect(mockedOnSuccess).toHaveBeenCalled();
-        mockedRunPolling.mockRestore();
-        mockedRunPolling.mockClear();
+      });
+      test('onSuccess and run Polling should get called when response from api is empty', async () => {
+        global.fetch = jest.fn().mockImplementation(() =>
+          Promise.resolve({
+            json: () => {
+              return new Promise((resolve, reject) => {
+                reject(mockData.continuePollingResponse);
+              });
+            },
+            ok: true
+          })
+        );
+        shallow(
+          <ReactPolling
+            url={url}
+            onSuccess={mockedOnSuccess}
+            onFailure={onFailure}
+            render={({ isPolling }) => {
+              return (
+                <div>
+                  <p>Polling Component</p>
+                  {isPolling ? (
+                    <div id="isPolling"> I am polling</div>
+                  ) : (
+                    <div id="isNotPolling"> I am not polling </div>
+                  )}
+                </div>
+              );
+            }}
+          />
+        );
+        expect(mockedRunPolling).toHaveBeenCalledTimes(1);
+        expect(setTimeout).toHaveBeenCalledTimes(1);
+        jest.runAllTimers();
+        expect(fetch).toHaveBeenCalled();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(mockedOnSuccess).toHaveBeenCalled();
+        await Promise.resolve();
+        expect(mockedRunPolling).toHaveBeenCalledTimes(2);
+        expect(setTimeout).toHaveBeenCalledTimes(2);
+        jest.runAllTimers();
+        expect(fetch).toHaveBeenCalled();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(mockedOnSuccess).toHaveBeenCalled();
+      });
+      test('onSuccess and run Polling should get called using a custom promise', async () => {
+        const data = [{ id: 1 }, { id: 2 }];
+        const fetchData = () => {
+          return new Promise(resolve => {
+            resolve({
+              data
+            });
+          });
+        };
+        shallow(
+          <ReactPolling
+            url={url}
+            onSuccess={mockedOnSuccess}
+            onFailure={onFailure}
+            promise={fetchData}
+            render={({ isPolling }) => {
+              return (
+                <div>
+                  <p>Polling Component</p>
+                  {isPolling ? (
+                    <div id="isPolling"> I am polling</div>
+                  ) : (
+                    <div id="isNotPolling"> I am not polling </div>
+                  )}
+                </div>
+              );
+            }}
+          />
+        );
+        expect(mockedRunPolling).toHaveBeenCalledTimes(1);
+        expect(setTimeout).toHaveBeenCalledTimes(1);
+        jest.runAllTimers();
+        expect(fetch).toHaveBeenCalled();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(mockedOnSuccess).toHaveBeenCalled();
+        expect(mockedOnSuccess).toHaveBeenCalledWith({ data: data });
+        await Promise.resolve();
+        expect(mockedRunPolling).toHaveBeenCalledTimes(2);
+        expect(setTimeout).toHaveBeenCalledTimes(2);
+        jest.runAllTimers();
+        expect(fetch).toHaveBeenCalled();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(mockedOnSuccess).toHaveBeenCalled();
       });
     });
   });
   describe('error test cases', () => {
     beforeAll(() => {
-      window.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = jest.fn().mockImplementation(() => {
         return new Promise((resolve, reject) => {
           reject(true);
         });
@@ -301,7 +405,7 @@ describe('<ReactPolling />', () => {
             return (
               <div>
                 <p>Polling Component</p>
-                {isPolling ? <div id='isPolling'> I am polling</div> : <div id='isNotPolling'> I am not polling </div>}
+                {isPolling ? <div id="isPolling"> I am polling</div> : <div id="isNotPolling"> I am not polling </div>}
               </div>
             );
           }}
