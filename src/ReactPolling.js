@@ -106,6 +106,8 @@ export class ReactPolling extends React.Component {
     if (!this.config.url) {
       throw new Error('No url provided to poll. Please provide a config object with the url param set');
     }
+    // reset the interval back to original
+    this.config.interval = this.props.interval;
     // set isPolling to true
     this.setState({
       isPolling: true
