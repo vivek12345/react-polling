@@ -12,9 +12,6 @@
     "lib",
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js",
     "test": "cross-env NODE_ENV=test jest",
