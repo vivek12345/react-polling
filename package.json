@@ -1,6 +1,6 @@
 {
   "name": "react-polling",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Polling an API made easy with react-polling",
   "keywords": [
     "react",
@@ -12,6 +12,9 @@
     "lib",
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js",
     "test": "cross-env NODE_ENV=test jest",
