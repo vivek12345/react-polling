@@ -375,6 +375,50 @@ describe('<ReactPolling />', () => {
         await Promise.resolve();
         expect(mockedOnSuccess).toHaveBeenCalled();
       });
+      test('run Polling should call setTimeout and make api calls at every interval with backOffFactor', async () => {
+        shallow(
+          <ReactPolling
+            url={url}
+            onSuccess={mockedOnSuccess}
+            onFailure={onFailure}
+            backOffFactor={2}
+            render={({ isPolling }) => {
+              return (
+                <div>
+                  <p>Polling Component</p>
+                  {isPolling ? (
+                    <div id="isPolling"> I am polling</div>
+                  ) : (
+                    <div id="isNotPolling"> I am not polling </div>
+                  )}
+                </div>
+              );
+            }}
+          />
+        );
+        expect(mockedRunPolling).toHaveBeenCalledTimes(1);
+        expect(setTimeout).toHaveBeenCalledTimes(1);
+        expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 3000);
+        jest.runAllTimers();
+        expect(fetch).toHaveBeenCalled();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(mockedOnSuccess).toHaveBeenCalled();
+        await Promise.resolve();
+        expect(mockedRunPolling).toHaveBeenCalledTimes(2);
+        expect(setTimeout).toHaveBeenCalledTimes(2);
+        expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 6000);
+        jest.runAllTimers();
+        expect(fetch).toHaveBeenCalled();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(mockedOnSuccess).toHaveBeenCalled();
+      });
     });
   });
   describe('error test cases', () => {

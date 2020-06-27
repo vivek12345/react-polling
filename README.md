@@ -105,6 +105,7 @@ const App = () => {
 | body                    | object                 | -         | The data that need to be sent in a post/put call                                                    |
 | render                  | function               | -         | Render function to render the ui                                                                    |
 | promise                 | function               | -         | custom function that should return a promise                                                                    |
+| backOffFactor                 | number               | 1         | exponential back off factor for api polling(interval*backOffFactor)                                                                    |
 | children                | function               | -         | React children function based on child props pattern                                                |
 
 #### onSuccess (required)
@@ -141,6 +142,13 @@ function fetchPosts() {
   return axios.get("some url");
 }
 ```
+
+#### backOffFactor(default is 1) (not compulsory field)
+This option is only needed if you want to exponentially increase the rate at which we poll the api.
+For example 
+* if `backOffFactor` is 2 and `interval` is 3000, then the first polling call will be made after 3000ms
+* Next polling call will happen after `interval*backOffFactor` = 3000*2 = 6000ms later
+
 
 ## 📦 Size
 

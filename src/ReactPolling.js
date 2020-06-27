@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
   method={'GET'}
   headers={headers object} // this is optional
   body={JSON.stringify(data)} // data to send in a post call. Should be stringified always
+  promise={() => return axios.get('some url')} // to be used when the user wants to not use fetch and instead wants to send their own api calling logic
+  backOffFactor={2} // exponential back off time for polling an api. Default is 1
   render={({ startPolling, stopPolling, isPolling }) => {
     if(isPolling) {
       return (
@@ -47,6 +49,8 @@ export class ReactPolling extends React.Component {
    *    Content-Type: 'application/json'
    *  },
    *  body: JSON.stringify(data) // in case of a post call
+   *  promise={() => return axios.get('some url')} // to be used when the user wants to not use fetch and instead wants to send their own api calling logic
+   *  backOffFactor={2} // exponential back off time for polling an api. Default is 1
    * }
    */
   constructor(props) {
@@ -61,14 +65,16 @@ export class ReactPolling extends React.Component {
    * @param {Object} options
    */
   initConfig(options) {
-    let { url, interval, retryCount, onSuccess, onFailure, promise, ...api } = options;
+    let { url, interval, retryCount, backOffFactor, onSuccess, onFailure, promise, ...api } = options;
     interval = Number(interval);
     retryCount = Number(retryCount);
+    backOffFactor = Number(backOffFactor);
     this.config = {
       url,
       interval,
       shouldRetry: retryCount ? true : false,
-      retryCount: retryCount,
+      retryCount,
+      backOffFactor,
       onSuccess,
       onFailure,
       promise,
@@ -115,7 +121,7 @@ export class ReactPolling extends React.Component {
    * This function would call the api first time and only on the success response of the api we would poll again after the interval
    */
   runPolling() {
-    const { url, interval, onSuccess, onFailure, promise, api } = this.config;
+    const { url, interval, backOffFactor, onSuccess, onFailure, promise, api } = this.config;
 
     const pollingPromise = (promise && promise(url)) || fetch(url, api);
 
@@ -149,12 +155,18 @@ export class ReactPolling extends React.Component {
         })
         .then(onSuccess)
         .then(continuePolling => {
-          _this.state.isPolling && continuePolling ? _this.runPolling() : _this.stopPolling();
+          if (_this.state.isPolling && continuePolling) {
+            _this.config.interval *= backOffFactor;
+            _this.runPolling();
+          } else {
+            _this.stopPolling();
+          }
         })
         .catch(error => {
           if (_this.config.shouldRetry && _this.config.retryCount > 0) {
             onFailure && onFailure(error);
             _this.config.retryCount--;
+            _this.config.interval *= backOffFactor;
             _this.runPolling();
           } else {
             onFailure && onFailure(error);
@@ -201,6 +213,7 @@ ReactPolling.propTypes = {
   body: PropTypes.object,
   render: PropTypes.func,
   promise: PropTypes.func,
+  backOffFactor: PropTypes.number,
   children: PropTypes.func
 };
 
@@ -208,6 +221,7 @@ ReactPolling.propTypes = {
 ReactPolling.defaultProps = {
   interval: 3000,
   retryCount: 0,
+  backOffFactor: 1,
   onFailure: () => {},
   method: 'GET'
 };
